@@ -53,6 +53,15 @@ export default {
       axios.patch(`http://localhost:3000/cars/${this.editCarParams.id}.json`, this.editCarParams).then(response => {
         console.log(response.data);
       });
+    },
+    destroyCar: function (car) {
+      console.log("destroying stuff");
+      console.log(car);
+      axios.delete(`http://localhost:3000/cars/${car.id}`).then(response => {
+        console.log(response.data);
+        var index = this.cars.indexOf(car);
+        this.cars.splice(index, 1);
+      });
     }
   }
 };
@@ -116,6 +125,7 @@ export default {
           <input v-model="editCarParams.input_image_url" />
         </p>
         <button v-on:click="updateCar()">Update Car</button>
+        <button v-on:click="destroyCar(currentCar)">Remove Car</button>
         <button>Close</button>
       </form>
     </dialog>
